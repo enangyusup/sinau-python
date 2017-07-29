@@ -1,0 +1,31 @@
+{% extends "base-layout.html" %}
+
+{% from "macros.html" import render_field, render_submit, ckeditor %}
+
+{% if article %}
+  {% set title = "Edit Article" %}
+  {% set submit = "Edit" %}
+{% else %}
+  {% set title = "Add Article" %}
+  {% set submit = "Add" %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}{{ ckeditor('content') }}{% endblock %}
+
+{%- block right %}
+    <div class="niku-box">
+    <form action="{{ url_for('article_post') }}" method="post" class="form-horizontal">
+        <legend>{{ title }}</legend>
+        {{ form.id }}
+        {{ render_field(form.title) }}
+        {{ render_field(form.slug) }}
+        {{ render_field(form.published_time) }}
+        {{ render_field(form.shortdesc, rows=4) }}
+        {{ render_field(form.content) }}
+        {{ form.csrf_token }}
+        {{ render_submit(submit) }}
+    </form>
+    </div>
+{%- endblock %}

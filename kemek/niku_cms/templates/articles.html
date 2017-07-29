@@ -1,0 +1,55 @@
+{% extends "base-layout.html" %}
+
+{% from "macros.html" import render_pagination %}
+
+{% block title %}Articles{% endblock %}
+
+{%- block right %}
+  {{ render_pagination(pagination, 'articles') }}
+  {%- for article in pagination.items %}
+    <div class="niku-box">
+      <div class="niku-article-site">
+        {{ article.site.name|upper }}
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{ article.title|safe }}</th>
+            <th>
+              {%- if article.published %}
+              <a title="unpublish" href="#"><i class="icon-arrow-down"></i></a>
+              {%- else %}
+              <a title="publish" href="#"><i class="icon-arrow-up"></i></a>
+              {%- endif %}
+            </th>
+            <th>
+              <a title="edit" href="{{ url_for('article', id=article.id) }}"><i class="icon-edit"></i></a>
+            </th>
+          </tr>
+        <tbody>
+          <tr>
+            <td colspan="3">
+              {{ article.str_tags|join(', ') }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">{{ article.shortdesc|safe }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">== media status ==</td>
+            <td>
+              <a href="#"><i class="icon-picture"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="font-size: 24px;">
+              <a href="#"><i class="icon-trash"></i></a>
+              <a href="#"><i class="icon-twitter"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  {%- endfor %}
+  {{ render_pagination(pagination, 'articles') }}
+{%- endblock %}

@@ -1,0 +1,13 @@
+<strong>Terkini</strong>
+<ul>
+{% for article in terkini %}
+<li><a href="{{ article.url }}">{{ article.title|safe }}</a></li>
+{% endfor %}
+</ul>
+
+<strong>Ekonomi</strong>
+<ul>
+{% for article in ekonomi %}
+<li><a href="{{ article.url }}">{{ article.title|safe }}</a></li>
+{% endfor %}
+</ul>
